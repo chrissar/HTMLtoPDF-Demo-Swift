@@ -131,6 +131,8 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = ND;
+				LastSwiftMigration = 0710;
+				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = Nurves;
 			};

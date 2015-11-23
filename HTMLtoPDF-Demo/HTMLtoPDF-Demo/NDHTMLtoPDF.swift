@@ -18,6 +18,12 @@
 //  *                                     11/06/2015                                          *
 //  *******************************************************************************************
 
+//  *******************************************************************************************
+//  *                                                                                         *
+//  **This code has been automaticaly ported to Swift language 2.0 using XCode               **
+//  *                                     23/11/2015                                          *
+//  *******************************************************************************************
+
 import UIKit
 
 typealias NDHTMLtoPDFCompletionBlock = (htmlToPDF:NDHTMLtoPDF) -> Void
@@ -41,25 +47,25 @@ class NDHTMLtoPDF :UIViewController,UIWebViewDelegate
     var pageMargins:UIEdgeInsets?
     
     class func createPDFWithURL( URL:NSURL ,pathForPDF PDFpath:NSString ,delegate:AnyObject ,pageSize:CGSize ,margins pageMargins:UIEdgeInsets )->AnyObject{
-        var creator:NDHTMLtoPDF = NDHTMLtoPDF(URL:URL , delegate: delegate , pathForPDF: PDFpath , pageSize: pageSize , margins: pageMargins )
+        let creator:NDHTMLtoPDF = NDHTMLtoPDF(URL:URL , delegate: delegate , pathForPDF: PDFpath , pageSize: pageSize , margins: pageMargins )
         
         return creator
         
     }
     class func createPDFWithHTML( HTML:NSString ,pathForPDF PDFpath:NSString ,delegate:AnyObject ,pageSize:CGSize ,margins pageMargins:UIEdgeInsets )->AnyObject{
-        var creator:NDHTMLtoPDF = NDHTMLtoPDF(HTML:HTML , baseURL: nil , delegate: delegate , pathForPDF: PDFpath , pageSize: pageSize , margins: pageMargins )
+        let creator:NDHTMLtoPDF = NDHTMLtoPDF(HTML:HTML , baseURL: nil , delegate: delegate , pathForPDF: PDFpath , pageSize: pageSize , margins: pageMargins )
         
         return creator
         
     }
     class func createPDFWithHTML( HTML:NSString ,baseURL:NSURL ,pathForPDF PDFpath:NSString ,delegate:AnyObject ,pageSize:CGSize ,margins pageMargins:UIEdgeInsets )->AnyObject{
-        var creator:NDHTMLtoPDF = NDHTMLtoPDF(HTML:HTML , baseURL: baseURL , delegate: delegate , pathForPDF: PDFpath , pageSize: pageSize , margins: pageMargins )
+        let creator:NDHTMLtoPDF = NDHTMLtoPDF(HTML:HTML , baseURL: baseURL , delegate: delegate , pathForPDF: PDFpath , pageSize: pageSize , margins: pageMargins )
         
         return creator
         
     }
     class func createPDFWithURL( URL:NSURL ,pathForPDF PDFpath:NSString ,pageSize:CGSize ,margins pageMargins:UIEdgeInsets ,successBlock:NDHTMLtoPDFCompletionBlock ,errorBlock:NDHTMLtoPDFCompletionBlock )->AnyObject{
-        var creator:NDHTMLtoPDF = NDHTMLtoPDF(URL:URL , delegate: nil , pathForPDF: PDFpath , pageSize: pageSize , margins: pageMargins )
+        let creator:NDHTMLtoPDF = NDHTMLtoPDF(URL:URL , delegate: nil , pathForPDF: PDFpath , pageSize: pageSize , margins: pageMargins )
         
         creator.successBlock = successBlock
         creator.errorBlock = errorBlock
@@ -67,7 +73,7 @@ class NDHTMLtoPDF :UIViewController,UIWebViewDelegate
         
     }
     class func createPDFWithHTML( HTML:NSString ,pathForPDF PDFpath:NSString ,pageSize:CGSize ,margins pageMargins:UIEdgeInsets ,successBlock:NDHTMLtoPDFCompletionBlock ,errorBlock:NDHTMLtoPDFCompletionBlock )->AnyObject{
-        var creator:NDHTMLtoPDF = NDHTMLtoPDF(HTML:HTML , baseURL: nil , delegate: nil , pathForPDF: PDFpath , pageSize: pageSize , margins: pageMargins )
+        let creator:NDHTMLtoPDF = NDHTMLtoPDF(HTML:HTML , baseURL: nil , delegate: nil , pathForPDF: PDFpath , pageSize: pageSize , margins: pageMargins )
         
         creator.successBlock = successBlock
         creator.errorBlock = errorBlock
@@ -75,7 +81,7 @@ class NDHTMLtoPDF :UIViewController,UIWebViewDelegate
         
     }
     class func createPDFWithHTML( HTML:NSString ,baseURL:NSURL ,pathForPDF PDFpath:NSString , pageSize:CGSize ,margins pageMargins:UIEdgeInsets ,successBlock:NDHTMLtoPDFCompletionBlock ,errorBlock:NDHTMLtoPDFCompletionBlock )->AnyObject{
-        var creator:NDHTMLtoPDF = NDHTMLtoPDF(HTML: HTML , baseURL: baseURL , delegate: nil , pathForPDF: PDFpath , pageSize: pageSize , margins: pageMargins )
+        let creator:NDHTMLtoPDF = NDHTMLtoPDF(HTML: HTML , baseURL: baseURL , delegate: nil , pathForPDF: PDFpath , pageSize: pageSize , margins: pageMargins )
         creator.successBlock = successBlock
         creator.errorBlock = errorBlock
         return creator
@@ -139,12 +145,12 @@ class NDHTMLtoPDF :UIViewController,UIWebViewDelegate
             
         }
         
-        var render:UIPrintPageRenderer = UIPrintPageRenderer()
+        let render:UIPrintPageRenderer = UIPrintPageRenderer()
         
         render.addPrintFormatter(webView.viewPrintFormatter() , startingAtPageAtIndex: 0 )
-        var printableRect:CGRect = CGRectMake(self.pageMargins!.left , self.pageMargins!.top , self.pageSize!.width - self.pageMargins!.left  - self.pageMargins!.right  , self.pageSize!.height - self.pageMargins!.top  - self.pageMargins!.bottom  )
+        let printableRect:CGRect = CGRectMake(self.pageMargins!.left , self.pageMargins!.top , self.pageSize!.width - self.pageMargins!.left  - self.pageMargins!.right  , self.pageSize!.height - self.pageMargins!.top  - self.pageMargins!.bottom  )
         
-        var paperRect:CGRect = CGRectMake( 0 ,  0 , self.pageSize!.width , self.pageSize!.height )
+        let paperRect:CGRect = CGRectMake( 0 ,  0 , self.pageSize!.width , self.pageSize!.height )
         
         render.setValue(NSValue(CGRect: paperRect )  , forKey:"paperRect" )
         render.setValue(NSValue(CGRect: printableRect )  , forKey:"printableRect" )
@@ -169,11 +175,11 @@ class NDHTMLtoPDF :UIViewController,UIWebViewDelegate
         
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    func webView(webView: UIWebView, didFailLoadWithError error:NSError)
+    func webView(webView: UIWebView, didFailLoadWithError error:NSError?)
     {
         if webView.loading {
             return
@@ -209,13 +215,13 @@ extension UIPrintPageRenderer
 {
     func printToPDF()->NSData
     {
-        var pdfData:NSMutableData = NSMutableData()
+        let pdfData:NSMutableData = NSMutableData()
         
         UIGraphicsBeginPDFContextToData(pdfData, self.paperRect,nil )
         
         self.prepareForDrawingPages(NSMakeRange(0, self.numberOfPages()))
         
-        var bounds:CGRect  = UIGraphicsGetPDFContextBounds()
+        let bounds:CGRect  = UIGraphicsGetPDFContextBounds()
         
         for var i:Int = 0 ; i < self.numberOfPages() ; i++
         {
